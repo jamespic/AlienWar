@@ -13,12 +13,49 @@ import prey.*;
 import alien.*;
 
 public class Planet {
-    private static final Class[] species = {Whale.class, Cow.class, Turtle.class, Eagle.class, Human.class};
+    static final Class[] species = {Whale.class,
+                                            Cow.class,
+                                            Turtle.class, 
+                                            Eagle.class, 
+                                            Human.class,
+                                            AimlessWanderer.class,
+                                            BananaPeel.class,
+                                            BlindBully.class,
+                                            BullyAlien.class,
+                                            CleverAlien.class,
+                                            Coward.class,
+                                            CropCircleAlien.class,
+                                            Fleer.class,
+                                            Guard.class,
+                                            Hunter.class,
+                                            Junkie.class,
+                                            Manager.class,
+                                            Morphling.class,
+                                            OkinawaLife.class,
+                                            Rock.class,
+                                            Rogue.class,
+                                            SecretWeapon3.class,
+                                            Survivor.class,
+                                            Warrior.class,
+                                            WeakestLink.class,
+                                            SecretWeapon.class,
+                                            SecretWeapon2.class,
+                                            ChooseYourBattles.class,
+                                            NewGuy.class,
+                                            Predator.class,
+                                            PredicatEyes.class,
+                                            PredicatClaw.class,
+                                            Predicoward.class};
     private static final int SIZE = (int)Math.ceil(Math.sqrt(species.length * 100 * 2.5)); // 0 inclusive, SIZE exclusive
 	private static final int ROUND_COUNT = 1000;
 	private static final int SPECIE_COUNT = 100;
 	private static final int START_HEALING_FACTOR = 5;
-	private static final List<Specie> speciesList = new ArrayList<Specie>();
+	static final ThreadLocal<List<Specie>> speciesList = new ThreadLocal<List<Specie>>() {
+        @Override
+        protected List<Specie> initialValue() {
+            return new ArrayList<>();
+        }
+    };
 
     public static void main(String[] args) {		
 		populate();
@@ -28,7 +65,7 @@ public class Planet {
 			removeDeadSpecies();
         }
 		
-		new Stats(species, speciesList).show();
+		new Stats(species, speciesList.get()).show();
 	}
 	
 	private static void populate() {
@@ -41,7 +78,7 @@ public class Planet {
 					if (checkAbilitesOk(abilities)) {
 						newSpecie.upgradeAbilities(abilities);
 						newSpecie.heal(Math.round(abilities[0]) * START_HEALING_FACTOR);
-						speciesList.add(newSpecie);
+						speciesList.get().add(newSpecie);
 					}
 				} catch (Exception e) {}
 			}
@@ -50,10 +87,10 @@ public class Planet {
 	
 	private static void moveAndFight() {
 		Map<Point, List<Specie>> positions = new HashMap<Point, List<Specie>>();
-		Collections.shuffle(speciesList); // make fighting random if multiple species walk on one field
-		Area area = new Area(speciesList, SIZE);
+		Collections.shuffle(speciesList.get()); // make fighting random if multiple species walk on one field
+		Area area = new Area(speciesList.get(), SIZE);
 		
-		for (Specie specie : speciesList) {
+		for (Specie specie : speciesList.get()) {
 			Move move = Move.STAY;
 			//move
 			Point pos = specie.getPos();
@@ -85,7 +122,7 @@ public class Planet {
 	}
 	
 	private static void removeDeadSpecies() {
-		Iterator<Specie> it = speciesList.iterator();
+		Iterator<Specie> it = speciesList.get().iterator();
 		while (it.hasNext()) {
 			Specie currSpecie = it.next();
 			if (currSpecie.isDead()) {
@@ -98,7 +135,7 @@ public class Planet {
 		Random rand = new Random();
 		Point pos;
 		List<Point> positions = new ArrayList<Point>();
-		for (Specie specie : speciesList) {
+		for (Specie specie : speciesList.get()) {
 			do {
 				pos = new Point(rand.nextInt(SIZE), rand.nextInt(SIZE));
 			} while (positions.contains(pos));
