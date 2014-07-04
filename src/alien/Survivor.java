@@ -52,9 +52,9 @@ public class Survivor extends Alien {
 
     public boolean wantToFight(int[] enemyAbilities) {
         //same order of array as in setAbilityPoints, but without cleverness
-        boolean fight = boldness < 50;//After 50 fights, believes self unstoppable
+        boolean fight = boldness < 50;//After 50 fights, believes self unstoppable            
         int huntable = 0;
-        for(int ability: enemyAbilities){
+        for(int ability : enemyAbilities){
             if(ability == 1)
                 huntable++;
         }

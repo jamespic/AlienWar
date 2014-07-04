@@ -1,12 +1,15 @@
-package alien; import planet.Move; import java.util.ArrayList;
+package alien;
+
+import planet.Move;
+import java.util.ArrayList;
 
 public class Fleer extends Alien
 {
     public void setAbilityPoints(float[] abilities) {
         abilities[0] = 1; //life
         abilities[1] = 0; //strength
-        abilities[2] = 5; //defense
-        abilities[3] = 4; //vision
+        abilities[2] = 4; //defense
+        abilities[3] = 5; //vision
         abilities[4] = 1; //cleverness
     }
 

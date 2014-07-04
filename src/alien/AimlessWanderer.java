@@ -1,7 +1,7 @@
 package alien;
 
-import java.util.Random;
 import planet.Move;
+import java.util.Random;
 
 public class AimlessWanderer extends Alien{
 
@@ -10,8 +10,8 @@ public class AimlessWanderer extends Alien{
         int cap = 10;
         Random rand = new Random(); 
         for(int i = 0;i<abilities.length; i++){
-        abilities[i] = rand.nextInt(cap);
-        cap -= abilities [i];
+            abilities[i] = rand.nextInt(cap);
+            cap -= abilities [i];
         }
         abilities[rand.nextInt(4)] += cap>0? cap:0;
     }

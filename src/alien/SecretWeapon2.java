@@ -7,22 +7,22 @@ import planet.Move;
  */
 public class SecretWeapon2 extends Alien {
 
-    private final static byte LIFE=0, STR=1, DEF=2, VIS=3, CLV=4;
+   private final static byte LIFE=0, STR=1, DEF=2, VIS=3, CLV=4;
 
-    public void setAbilityPoints(float[] abilities) {
-        abilities[LIFE] = 3;
-        abilities[STR] = 7;
-        abilities[DEF] = 0;
-        abilities[VIS] = 0;
-        abilities[CLV] = 0;
-    }
+public void setAbilityPoints(float[] abilities) {
+    abilities[LIFE] = 3;
+    abilities[STR] = 7;
+    abilities[DEF] = 0;
+    abilities[VIS] = 0;
+    abilities[CLV] = 0;
+}
 
-    public Move move(char[][] fields)   {
-        return Move.getRandom();
-    }
+public Move move(char[][] fields)   {
+     return Move.getRandom();
+}
 
-    public boolean wantToFight(int[] enemyAbilities)    {
+public boolean wantToFight(int[] enemyAbilities)    {
 
-        return enemyAbilities[1] < 4;
-    }
+    return enemyAbilities[1] < 4;
+  }
 }
